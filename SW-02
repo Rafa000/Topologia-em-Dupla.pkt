@@ -1,0 +1,44 @@
+enable
+configure terminal
+hostname SW-02 
+banner motd ACESSO APENAS PARA PESSOAS AUTORIZADAS!
+username rafaelbarreto privilege 15 secret batata*0
+line console 0
+login local
+end
+enable
+configure terminal
+line vty 0 15
+login local 
+interface vlan1
+ip address 172.16.0.254 255.255.0.0
+no shutdown
+end
+enable
+configure terminal
+line vty 0 15
+password rafael*vty
+end
+enable
+configure terminal
+enable password Rafael*Enable
+line console 0
+password Rafael*Console
+end
+enable
+configure terminal
+ip domain-name 1rede.local
+crypto key generate rsa general-key modulus 1024
+line vty 0 15
+transport input ssh
+password Rafael*ssh
+login
+end
+enable
+configure terminal
+line vty 0 15
+password Rafael*vty
+end
+enable 
+configure terminal
+service password-encryption
